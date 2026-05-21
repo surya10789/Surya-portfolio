@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surya V M | AI & ML Engineer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+          },
+          colors: {
+            primary: '#6366f1',
+            secondary: '#a855f7',
+            accent: '#06b6d4',
+            dark: '#0f172a',
+            darker: '#020617',
+          },
+          animation: {
+            'gradient': 'gradient 8s linear infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'fade-in': 'fadeIn 0.8s ease-out forwards',
+            'slide-up': 'slideUp 0.8s ease-out forwards',
+          },
+          keyframes: {
+            gradient: {
+              '0%, 100%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-20px)' },
+            },
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s ease;
+    }
+    .glass-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(99, 102, 241, 0.3);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #06b6d4 100%);
+      background-size: 200% 200%;
+      animation: gradient 8s linear infinite;
+    }
+    .hero-grid {
+      background-image:
+        linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-ring {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      transform-style: preserve-3d;
+      perspective: 1400px;
+    }
+    .hero-ring-inner {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      animation: carouselSpin 24s infinite linear;
+    }
+    .hero-ring-item {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 130px;
+      height: 90px;
+      margin: -45px 0 0 -65px;
+      transform-style: preserve-3d;
+    }
+    .hero-ring-item:nth-child(1){transform: rotateY(0deg) translateZ(200px);} 
+    .hero-ring-item:nth-child(2){transform: rotateY(90deg) translateZ(200px);} 
+    .hero-ring-item:nth-child(3){transform: rotateY(180deg) translateZ(200px);} 
+    .hero-ring-item:nth-child(4){transform: rotateY(270deg) translateZ(200px);} 
+    .hero-ring-card {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: #fff;
+      font-size: 0.95rem;
+      letter-spacing: 0.01em;
+    }
+    .hero-ring-card:hover {
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+    }
+    .hero-ring-card strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 0.35rem;
+    }
+    .hero-ring-card span {
+      color: rgba(148, 163, 184, 1);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+    @keyframes carouselSpin {
+      from { transform: rotateX(20deg) rotateY(0deg); }
+      to { transform: rotateX(20deg) rotateY(360deg); }
+    }
+    .skill-tag {
+      transition: all 0.3s ease;
+    }
+    .skill-tag:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+    }
+    .timeline-line {
+      background: linear-gradient(to bottom, #6366f1, #a855f7, #06b6d4);
+    }
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+    .scroll-reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .hero-entrance {
+      opacity: 0;
+      transform: translateY(-80px);
+      transition: transform 0.95s ease-out, opacity 0.95s ease-out;
+    }
+    .hero-entrance.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Theme toggle */
+    .theme-toggle {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+    .theme-toggle i {
+      transition: transform 0.3s ease;
+    }
+    /* Animated nav links */
+    .nav-link {
+      position: relative;
+      text-decoration: none;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #6366f1, #06b6d4);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    /* Achievements timeline */
+    .achievement-item {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+    }
+    .achievement-item.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .achievement-badge {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      font-size: 28px;
+      transition: all 0.3s ease;
+    }
+    .achievement-item:hover .achievement-badge {
+      transform: scale(1.1) rotate(-5deg);
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+    }
+    /* Light mode */
+    html.light-mode {
+      color-scheme: light;
+    }
+    html.light-mode body {
+      background-color: #f8fafc;
+      color: #1e293b;
+    }
+    html.light-mode .glass {
+      background: rgba(0, 0, 0, 0.02);
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+    html.light-mode .glass-card {
+      background: rgba(0, 0, 0, 0.03);
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+    html.light-mode .glass-card:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    html.light-mode .text-gray-400 {
+      color: #64748b;
+    }
+    html.light-mode .text-gray-500 {
+      color: #78909c;
+    }
+    html.light-mode h1, html.light-mode h2, html.light-mode h3 {
+      color: #1e293b;
+    }
+    html.light-mode .bg-dark\/50 {
+      background-color: rgba(30, 41, 59, 0.03);
+    }
+  </style>
+  <style>
+  /* Portrait 3D scene */
+  .portrait-scene{width:100%;height:360px;perspective:900px;position:relative}
+  @media (min-width:768px){.portrait-scene{height:480px}}
+  .portrait-card{width:100%;height:100%;transform-style:preserve-3d;transition:transform 300ms cubic-bezier(.2,.9,.2,1);border-radius:18px;overflow:hidden}
+  .portrait-bg{position:absolute;inset:0;background:url('Surya 2.jpeg') center/cover no-repeat;filter:blur(8px) saturate(.8);transform:translateZ(-80px) scale(1.12)}
+  .portrait-img{position:relative;display:block;width:100%;height:100%;object-fit:cover;transform:translateZ(0)}
+  </style>
+</head>
+<body class="bg-darker text-gray-100 font-sans antialiased overflow-x-hidden">
+  <nav class="fixed top-0 w-full z-50 glass border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex-shrink-0">
+          <span class="font-display font-bold text-xl gradient-text">SV.</span>
+        </div>
+        <div class="hidden md:block">
+          <div class="ml-10 flex items-baseline space-x-8">
+            <a href="#home" class="nav-link hover:text-primary transition-colors duration-300 text-sm font-medium">Home</a>
+            <a href="#about" class="nav-link hover:text-primary transition-colors duration-300 text-sm font-medium">About</a>
+            <a href="#projects" class="nav-link hover:text-primary transition-colors duration-300 text-sm font-medium">Projects</a>
+            <a href="#achievements" class="nav-link hover:text-primary transition-colors duration-300 text-sm font-medium">Achievements</a>
+            <a href="#contact" class="nav-link hover:text-primary transition-colors duration-300 text-sm font-medium">Contact</a>
+            <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode">
+              <i data-lucide="moon" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+        <div class="md:hidden">
+          <button onclick="toggleMobileMenu()" class="text-gray-300 hover:text-white">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden glass border-t border-white/5">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-white/5">Home</a>
+        <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-white/5">About</a>
+        <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-white/5">Projects</a>
+        <a href="#achievements" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-white/5">Achievements</a>
+        <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-white/5">Contact</a>
+        <button class="w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-white/5" id="mobileThemeToggle">🌙 Dark/Light</button>
+      </div>
+    </div>
+  </nav>
+
+  <section id="home" class="relative min-h-screen flex items-center justify-center hero-grid overflow-hidden pt-16">
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-float"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float" style="animation-delay: 4s;"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div class="grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
+        <div class="animate-fade-in text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 border border-primary/20 justify-center lg:justify-start">
+            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+            <span class="text-sm font-medium text-gray-300">Available for opportunities</span>
+          </div>
+          <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight hero-entrance">
+            Hi, I'm <span class="gradient-text">Surya V M</span>
+          </h1>
+          <p class="text-xl md:text-2xl text-gray-400 mb-4 font-light">
+            Computer Science & Engineering Student
+          </p>
+          <p class="text-lg md:text-xl text-gray-500 mb-12 max-w-2xl mx-auto lg:mx-0">
+            Specializing in <span class="text-primary font-medium">Artificial Intelligence</span> & <span class="text-secondary font-medium">Machine Learning</span>
+          </p>
+          <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+            <a href="book.html" class="px-8 py-4 rounded-full gradient-bg text-white font-semibold transition-all hover:scale-105 hover:shadow-2xl hover:shadow-primary/25">
+              Books Published
+            </a>
+            <a href="certificate.html" class="px-8 py-4 rounded-full glass border border-white/10 hover:border-primary/30 hover:bg-white/5 transition-all font-semibold">
+              View Certifications
+            </a>
+            <a href="#projects" class="px-8 py-4 rounded-full glass border border-white/10 hover:border-primary/30 hover:bg-white/5 transition-all font-semibold">
+              View My Work
+            </a>
+            <a href="#contact" class="px-8 py-4 rounded-full glass border border-white/10 hover:border-primary/30 hover:bg-white/5 transition-all font-semibold">
+              Get In Touch
+            </a>
+          </div>
+        </div>
+        <div class="relative flex justify-center lg:justify-end">
+          <div class="glass-card relative overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl shadow-black/30 max-w-md w-full" style="perspective:1400px;">
+            <div class="hero-ring" aria-hidden="true">
+              <div class="hero-ring-inner" id="heroRingInner">
+              <div class="hero-ring-item"><div class="hero-ring-card"><strong>AI</strong><span>Systems</span></div></div>
+              <div class="hero-ring-item"><div class="hero-ring-card"><strong>ML</strong><span>Models</span></div></div>
+              <div class="hero-ring-item"><div class="hero-ring-card"><strong>Web</strong><span>UX</span></div></div>
+              <div class="hero-ring-item"><div class="hero-ring-card"><strong>Code</strong><span>Craft</span></div></div>
+              </div>
+            </div>
+            <div id="portrait-scene" class="portrait-scene w-full">
+              <div id="portrait-card" class="portrait-card w-full h-full rounded-[18px] overflow-hidden relative">
+              <div id="portrait-bg" class="portrait-bg"></div>
+              <img src="Surya 2.jpeg" alt="Surya V M portrait" class="portrait-img" />
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-darker/90 to-transparent p-6">
+                <p class="text-xs uppercase tracking-[0.3em] text-primary mb-2">Surya V M</p>
+                <p class="text-white text-2xl font-semibold">AI & ML Engineer</p>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <i data-lucide="chevron-down" class="w-6 h-6 text-gray-500"></i>
+      </div>
+    </div>
+    </section>
+
+    <section class="py-24 bg-dark/50">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-center mb-16 scroll-reveal">
+          Journey & <span class="gradient-text">Education</span>
+        </h2>
+        <div class="relative">
+          <div class="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-0.5 timeline-line"></div>
+          <div class="space-y-12">
+            <div class="relative flex flex-col md:flex-row items-start md:items-center scroll-reveal">
+              <div class="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 rounded-full bg-primary border-4 border-darker z-10"></div>
+              <div class="ml-12 md:ml-0 md:w-1/2 md:pr-12 md:text-right">
+                <div class="glass-card rounded-xl p-6">
+                  <span class="text-primary text-sm font-semibold">2025 – Present</span>
+                  <h3 class="text-xl font-bold mt-2 mb-2">B.E. Computer Science & Engineering</h3>
+                  <p class="text-gray-400 text-sm mb-2">M. Kumarasamy College of Engineering</p>
+                  <p class="text-gray-500 text-sm">Specialization in Artificial Intelligence & Machine Learning</p>
+                </div>
+              </div>
+              <div class="hidden md:block md:w-1/2 md:pl-12"></div>
+            </div>
+            <div class="relative flex flex-col md:flex-row items-start md:items-center scroll-reveal">
+              <div class="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 rounded-full bg-secondary border-4 border-darker z-10"></div>
+              <div class="hidden md:block md:w-1/2 md:pr-12"></div>
+              <div class="ml-12 md:ml-0 md:w-1/2 md:pl-12">
+                <div class="glass-card rounded-xl p-6">
+                  <span class="text-secondary text-sm font-semibold">Completed 2025</span>
+                  <h3 class="text-xl font-bold mt-2 mb-2">Higher Secondary Education</h3>
+                  <p class="text-gray-400 text-sm">KSR Matric Higher Secondary School</p>
+                </div>
+              </div>
+            </div>
+            <div class="relative flex flex-col md:flex-row items-start md:items-center scroll-reveal">
+              <div class="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 rounded-full bg-accent border-4 border-darker z-10"></div>
+              <div class="ml-12 md:ml-0 md:w-1/2 md:pr-12 md:text-right">
+                <div class="glass-card rounded-xl p-6">
+                  <span class="text-accent text-sm font-semibold">April 2025 – Present</span>
+                  <h3 class="text-xl font-bold mt-2 mb-2">Project Developer</h3>
+                  <p class="text-gray-400 text-sm mb-2">Self-Initiated Projects</p>
+                  <ul class="text-gray-500 text-sm space-y-1">
+                    <li>• Developed SignBridge & SafeWalk</li>
+                    <li>• Built real-time safety and assistive solutions</li>
+                    <li>• Integrated cloud notifications and machine learning models</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="hidden md:block md:w-1/2 md:pl-12"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Achievements section removed per user request -->
+    <section id="projects" class="py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-center mb-4 scroll-reveal">
+          Featured <span class="gradient-text">Projects</span>
+        </h2>
+        <p class="text-gray-400 text-center mb-16 max-w-2xl mx-auto scroll-reveal">
+          Real-world applications built with passion and purpose, leveraging AI and modern web technologies.
+        </p>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="group scroll-reveal">
+            <div class="glass-card rounded-2xl overflow-hidden h-full">
+              <div class="h-48 bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%236366f1\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+                <i data-lucide="hand" class="w-16 h-16 text-primary/50 group-hover:scale-110 transition-transform duration-500"></i>
+              </div>
+              <div class="p-8">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-2xl font-bold font-display">SignBridge</h3>
+                  <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">AI/ML</span>
+                </div>
+                <p class="text-gray-400 mb-6 leading-relaxed">
+                  An innovative sign language translation platform enabling real-time communication for the hearing-impaired community using computer vision and machine learning.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-6">
+                  <span class="skill-tag px-3 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Python</span>
+                  <span class="skill-tag px-3 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Computer Vision</span>
+                  <span class="skill-tag px-3 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">AI</span>
+                </div>
+                <div class="flex items-center gap-2 text-primary font-medium group-hover:gap-4 transition-all">
+                  <span>Learn More</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="group scroll-reveal">
+            <div class="glass-card rounded-2xl overflow-hidden h-full">
+              <div class="h-48 bg-gradient-to-br from-secondary/20 to-secondary/5 flex items-center justify-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23a855f7\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+                <i data-lucide="shield" class="w-16 h-16 text-secondary/50 group-hover:scale-110 transition-transform duration-500"></i>
+              </div>
+              <div class="p-8">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-2xl font-bold font-display">SafeWalk</h3>
+                  <span class="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-xs font-semibold">Safety</span>
+                </div>
+                <p class="text-gray-400 mb-6 leading-relaxed">
+                  Real-time safety alert communication system for emergency situations. Features cloud integration for instant notifications and location tracking during critical moments.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-6">
+                  <span class="skill-tag px-3 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">HTML/CSS</span>
+                  <span class="skill-tag px-3 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Firebase</span>
+                  <span class="skill-tag px-3 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Cloud</span>
+                </div>
+                <div class="flex items-center gap-2 text-secondary font-medium group-hover:gap-4 transition-all">
+                  <span>Learn More</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-12 scroll-reveal">
+          <div class="glass-card rounded-2xl p-8 flex flex-col md:flex-row items-center gap-8 border-l-4 border-l-accent">
+            <div class="flex-shrink-0">
+              <div class="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center">
+                <i data-lucide="award" class="w-8 h-8 text-accent"></i>
+              </div>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold mb-2">Paralysis Assistance Glove Project</h3>
+              <p class="text-gray-400">
+                Innovative assistive technology project for paralysis patients. Published author of <span class="text-white">"The Celestial Odyssey of NASA Through Time and Space"</span>. Active participant in innovation competitions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="py-24 bg-dark/50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-center mb-4 scroll-reveal">
+          Technical <span class="gradient-text">Skills</span>
+        </h2>
+        <p class="text-gray-400 text-center mb-16 max-w-2xl mx-auto scroll-reveal">
+          A growing toolkit of technologies and concepts focused on AI, web development, and problem-solving.
+        </p>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="glass-card rounded-2xl p-8 scroll-reveal">
+            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
+              <i data-lucide="code-2" class="w-6 h-6 text-primary"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Programming</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-gray-300">Python</span>
+                <div class="flex gap-1">
+                  <div class="w-2 h-2 rounded-full bg-primary"></div>
+                  <div class="w-2 h-2 rounded-full bg-primary"></div>
+                  <div class="w-2 h-2 rounded-full bg-primary"></div>
+                  <div class="w-2 h-2 rounded-full bg-primary"></div>
+                  <div class="w-2 h-2 rounded-full bg-white/20"></div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-gray-300">C</span>
+                <div class="flex gap-1">
+                  <div class="w-2 h-2 rounded-full bg-primary"></div>
+                  <div class="w-2 h-2 rounded-full bg-primary"></div>
+                  <div class="w-2 h-2 rounded-full bg-primary"></div>
+                  <div class="w-2 h-2 rounded-full bg-white/20"></div>
+                  <div class="w-2 h-2 rounded-full bg-white/20"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="glass-card rounded-2xl p-8 scroll-reveal">
+            <div class="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center mb-6">
+              <i data-lucide="globe" class="w-6 h-6 text-secondary"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Web Development</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-gray-300">HTML5</span>
+                <div class="flex gap-1">
+                  <div class="w-2 h-2 rounded-full bg-secondary"></div>
+                  <div class="w-2 h-2 rounded-full bg-secondary"></div>
+                  <div class="w-2 h-2 rounded-full bg-secondary"></div>
+                  <div class="w-2 h-2 rounded-full bg-secondary"></div>
+                  <div class="w-2 h-2 rounded-full bg-white/20"></div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-gray-300">CSS3</span>
+                <div class="flex gap-1">
+                  <div class="w-2 h-2 rounded-full bg-secondary"></div>
+                  <div class="w-2 h-2 rounded-full bg-secondary"></div>
+                  <div class="w-2 h-2 rounded-full bg-secondary"></div>
+                  <div class="w-2 h-2 rounded-full bg-secondary"></div>
+                  <div class="w-2 h-2 rounded-full bg-white/20"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="glass-card rounded-2xl p-8 scroll-reveal">
+            <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-6">
+              <i data-lucide="brain" class="w-6 h-6 text-accent"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Tools & AI</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-gray-300">Firebase</span>
+                <div class="flex gap-1">
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <div class="w-2 h-2 rounded-full bg-white/20"></div>
+                  <div class="w-2 h-2 rounded-full bg-white/20"></div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-gray-300">AI & ML Basics</span>
+                <div class="flex gap-1">
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <div class="w-2 h-2 rounded-full bg-accent"></div>
+                  <div class="w-2 h-2 rounded-full bg-white/20"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent"></div>
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="text-center scroll-reveal">
+          <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">
+            Let's <span class="gradient-text">Connect</span>
+          </h2>
+          <p class="text-gray-400 mb-12 max-w-xl mx-auto">
+            Interested in collaborating or discussing AI/ML opportunities? I'm always open to new ideas and connections.
+          </p>
+          <div class="grid md:grid-cols-3 gap-6 mb-12">
+            <a href="mailto:vmsurya2007@gmail.com" class="glass-card rounded-xl p-6 group hover:border-primary/30 transition-all">
+              <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
+                <i data-lucide="mail" class="w-6 h-6 text-primary"></i>
+              </div>
+              <h3 class="font-semibold mb-1">Email</h3>
+              <p class="text-sm text-gray-400">vmsurya2007@gmail.com</p>
+            </a>
+            <a href="tel:+919842253267" class="glass-card rounded-xl p-6 group hover:border-secondary/30 transition-all">
+              <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-secondary/20 transition-colors">
+                <i data-lucide="phone" class="w-6 h-6 text-secondary"></i>
+              </div>
+              <h3 class="font-semibold mb-1">Phone</h3>
+              <p class="text-sm text-gray-400">+91 98422 53267</p>
+            </a>
+            <div class="glass-card rounded-xl p-6 group hover:border-accent/30 transition-all">
+              <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-accent/20 transition-colors">
+                <i data-lucide="map-pin" class="w-6 h-6 text-accent"></i>
+              </div>
+              <h3 class="font-semibold mb-1">Location</h3>
+              <p class="text-sm text-gray-400">Erode, Tamil Nadu</p>
+            </div>
+          </div>
+          <div class="glass-card rounded-2xl p-8 md:p-12 max-w-2xl mx-auto">
+            <form onsubmit="event.preventDefault(); alert('Thank you for reaching out! I will get back to you soon.');" class="space-y-6 text-left">
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-gray-400 mb-2">Name</label>
+                  <input type="text" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors" placeholder="Your name">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-400 mb-2">Email</label>
+                  <input type="email" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors" placeholder="your@email.com">
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-400 mb-2">Subject</label>
+                <input type="text" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors" placeholder="Project collaboration">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-400 mb-2">Message</label>
+                <textarea rows="4" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors resize-none" placeholder="Tell me about your project..."></textarea>
+              </div>
+              <button type="submit" class="w-full py-4 rounded-lg gradient-bg text-white font-semibold hover:shadow-lg hover:shadow-primary/25 transition-all hover:scale-[1.02]">
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="border-t border-white/5 py-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-2">
+          <span class="font-display font-bold text-xl gradient-text">SV.</span>
+          <span class="text-gray-500 text-sm">Surya V M</span>
+        </div>
+        <p class="text-gray-500 text-sm">AI & ML Enthusiast. Built with passion.</p>
+        <div class="flex gap-4">
+          <a href="mailto:vmsurya2007@gmail.com" class="text-gray-400 hover:text-primary transition-colors">
+            <i data-lucide="mail" class="w-5 h-5"></i>
+          </a>
+          <a href="tel:+919842253267" class="text-gray-400 hover:text-primary transition-colors">
+            <i data-lucide="phone" class="w-5 h-5"></i>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      lucide.createIcons();
+      function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+      }
+      const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('active');
+        });
+      }, observerOptions);
+      document.querySelectorAll('.scroll-reveal').forEach((el) => observer.observe(el));
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const target = document.querySelector(this.getAttribute('href'));
+          if (!target) return;
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          document.getElementById('mobile-menu').classList.add('hidden');
+        });
+      });
+      window.addEventListener('scroll', () => {
+        const nav = document.querySelector('nav');
+        if (window.scrollY > 50) {
+          nav.classList.add('bg-darker/80');
+        } else {
+          nav.classList.remove('bg-darker/80');
+        }
+      });
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          document.querySelector('.hero-entrance')?.classList.add('active');
+        }, 120);
+      });
+    </script>
+    <script>
+    (function(){
+      const scene = document.getElementById('portrait-scene');
+      if(!scene) return;
+      const card = document.getElementById('portrait-card');
+      const bg = document.getElementById('portrait-bg');
+      let rx=0, ry=0, tz=0, destX=0, destY=0, destZ=0;
+      function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+      function setT(){
+      card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateZ(${tz}px)`;
+      const bgTx = ry * -0.6; const bgTy = rx * 0.6;
+      bg.style.transform = `translate3d(${bgTx}px, ${bgTy}px, -80px) scale(1.12)`;
+      }
+      function animate(){ rx += (destX - rx) * 0.12; ry += (destY - ry) * 0.12; tz += (destZ - tz) * 0.12; setT(); requestAnimationFrame(animate); }
+      requestAnimationFrame(animate);
+      function onMove(e){
+      const rect = scene.getBoundingClientRect();
+      const x = (e.clientX ?? (e.touches && e.touches[0].clientX)) - rect.left;
+      const y = (e.clientY ?? (e.touches && e.touches[0].clientY)) - rect.top;
+      const px = (y - rect.height/2) / (rect.height/2); const py = (x - rect.width/2) / (rect.width/2);
+      destX = clamp(px * -12, -18, 18);
+      destY = clamp(py * 18, -18, 18);
+      destZ = 10 + Math.hypot(py,px) * 20;
+      }
+      function onLeave(){ destX = 0; destY = 0; destZ = 0; }
+      scene.addEventListener('mousemove', onMove);
+      scene.addEventListener('touchmove', onMove,{passive:true});
+      scene.addEventListener('mouseleave', onLeave);
+      scene.addEventListener('touchend', onLeave);
+      window.addEventListener('wheel', (e)=>{ destZ = clamp(destZ + e.deltaY*0.02, -60, 80); }, {passive:true});
+    })();
+    </script>
+    <script>
+    (function(){
+      const heroRing = document.getElementById('heroRingInner');
+      let ringAngle = 0, ringOffset = 0;
+      function spinRing(){
+      ringAngle += 0.35;
+      if (ringAngle >= 360) ringAngle -= 360;
+      if (heroRing) heroRing.style.transform = `rotateX(20deg) rotateY(${ringAngle + ringOffset}deg)`;
+      requestAnimationFrame(spinRing);
+      }
+      requestAnimationFrame(spinRing);
+      const ringScene = document.querySelector('.glass-card');
+      if (ringScene) {
+      ringScene.addEventListener('mousemove', (e) => {
+        const rect = ringScene.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        ringOffset = x * -18;
+      });
+      ringScene.addEventListener('mouseleave', () => { ringOffset = 0; });
+      }
+    })();
+    </script>
+      <script>
+      (function(){
+        // Theme toggle (desktop + mobile)
+        const themeToggle = document.getElementById('themeToggle');
+        const mobileTheme = document.getElementById('mobileThemeToggle');
+        const root = document.documentElement;
+        function applyTheme(mode){
+          if(mode === 'light'){
+            root.classList.add('light-mode');
+            localStorage.setItem('theme','light');
+            if(themeToggle) themeToggle.innerHTML = '<i data-lucide="sun" class="w-5 h-5"></i>';
+          } else {
+            root.classList.remove('light-mode');
+            localStorage.setItem('theme','dark');
+            if(themeToggle) themeToggle.innerHTML = '<i data-lucide="moon" class="w-5 h-5"></i>';
+          }
+          lucide.createIcons();
+        }
+        const saved = localStorage.getItem('theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        applyTheme(saved);
+        if(themeToggle) themeToggle.addEventListener('click', () => applyTheme(root.classList.contains('light-mode') ? 'dark' : 'light'));
+        if(mobileTheme) mobileTheme.addEventListener('click', () => { applyTheme(root.classList.contains('light-mode') ? 'dark' : 'light'); document.getElementById('mobile-menu').classList.add('hidden'); });
+
+        // Observe achievement items (use existing observer)
+        document.querySelectorAll('.achievement-item').forEach(el => { try { observer.observe(el); } catch(e){} });
+      })();
+      </script>
+  </body>
+  </html>
+

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Intro 3D Demo</title>
+  <style>
+    :root{--bg:#071022;--card:#0f1724;--accent:linear-gradient(135deg,#A281FF 10%,#EB8280 33%,#EBBF9A 66%,#89D0FF 90%)}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:var(--bg);color:#fff;padding-top:82px}
+    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:48px}
+    .scene{width:100%;max-width:1100px;height:560px;perspective:1200px;position:relative}
+    .card{width:100%;height:100%;transform-style:preserve-3d;transition:transform 300ms cubic-bezier(.2,.9,.2,1);border-radius:18px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+    .layer{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+    .bg-layer{background:radial-gradient(circle at 20% 20%, rgba(162,129,255,.15), transparent 15%), radial-gradient(circle at 80% 80%, rgba(137,208,255,.12), transparent 15%), url('https://images.ctfassets.net/opj3ybl4k7mx/6YFNihGC1buza2pXFAOUJM/541107ef31672618dc2edf3eb1dffcd8/1800x1080-clutch.jpg');background-size:cover;background-position:center;transform:translateZ(-120px) scale(1.12)}
+    .mid-layer{transform:translateZ(-60px) scale(1.06);display:flex;flex-direction:column;align-items:flex-start;padding:48px}
+    .mid-layer h1{font-size:64px;letter-spacing:2px;margin:0 0 8px}
+    .mid-layer p{max-width:420px;margin:0;color:rgba(255,255,255,.9)}
+    .fg-layer{pointer-events:none;transform:translateZ(40px);display:flex;align-items:flex-end;justify-content:flex-end;padding:32px}
+    .chip{background:var(--card);padding:10px 14px;border-radius:10px;color:#fff;backdrop-filter:blur(6px);box-shadow:0 6px 18px rgba(0,0,0,.6)}
+    .controls{position:absolute;left:16px;bottom:16px;color:rgba(255,255,255,.8);font-size:13px}
+    .orbiter{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none}
+    .orbiter-item{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateY(calc(var(--i)*90deg)) translateZ(240px);transition:transform 0.3s ease;}
+    .orbiter-card{width:180px;height:120px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:20px;background:rgba(255,255,255,.08);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);box-shadow:0 24px 60px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;letter-spacing:.02em;}
+    .orbiter-card span{display:block;text-align:center}
+    .orbiter-card .tag{display:block;margin-top:8px;font-size:.82rem;color:#a2b0ff;}
+    .scroll-reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease-out,transform 0.8s ease-out}
+    .scroll-reveal.active{opacity:1;transform:translateY(0)}
+    nav.intro-nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(7,16,34,.72);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08)}
+    nav.intro-nav.bg-active{background:rgba(7,16,34,.92)}
+    nav.intro-nav .nav-inner{max-width:1100px;margin:0 auto;padding:18px 24px;display:flex;justify-content:flex-end;gap:22px}
+    nav.intro-nav a{color:#d1d5db;text-decoration:none;font-size:.94rem;transition:color .25s ease}
+    nav.intro-nav a:hover{color:#a281ff}
+    .section{max-width:1100px;margin:0 auto;padding:100px 24px 64px}
+    .section-heading{font-size:clamp(2rem,4vw,3rem);margin-bottom:18px}
+    .panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:28px;box-shadow:0 24px 60px rgba(0,0,0,.28)}
+    .section-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+    .feature-title{margin:0 0 14px;font-size:1.25rem;color:#fff}
+    .feature-text{color:rgba(255,255,255,.78);line-height:1.8}
+    @media (max-width:900px){.section-grid{grid-template-columns:1fr}}
+    @media (max-width:700px){.scene{height:420px}.mid-layer h1{font-size:36px}}
+  </style>
+</head>
+<body>
+  <nav class="intro-nav scroll-reveal">
+    <div class="nav-inner">
+      <a href="#demo">Demo</a>
+      <a href="#features">Features</a>
+      <a href="#details">Details</a>
+    </div>
+  </nav>
+  <section id="demo" class="section scroll-reveal">
+    <div class="wrap">
+      <div class="scene" id="scene">
+        <div class="card" id="card">
+          <div class="layer bg-layer" id="bg"></div>
+          <div class="layer mid-layer">
+            <div>
+              <h1>OTHERSIDE</h1>
+              <p>Web3-enabled virtual worlds on ApeChain — a simplified 3D parallax demo inspired by the APECHAIN hero.</p>
+            </div>
+          </div>
+          <div class="layer fg-layer">
+            <div class="chip">Launch • Explore</div>
+          </div>
+        </div>
+        <div class="orbiter" id="orbiter">
+          <div class="orbiter-item" style="--i:0">
+            <div class="orbiter-card"><span>Ad Earth</span><span class="tag">Orbit 01</span></div>
+          </div>
+          <div class="orbiter-item" style="--i:1">
+            <div class="orbiter-card"><span>Ad Sphere</span><span class="tag">Orbit 02</span></div>
+          </div>
+          <div class="orbiter-item" style="--i:2">
+            <div class="orbiter-card"><span>Ad Globe</span><span class="tag">Orbit 03</span></div>
+          </div>
+          <div class="orbiter-item" style="--i:3">
+            <div class="orbiter-card"><span>Ad Rotate</span><span class="tag">Orbit 04</span></div>
+          </div>
+        </div>
+        <div class="controls">Move mouse / touch to tilt — scroll or pinch to zoom</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="section scroll-reveal">
+    <div class="panel">
+      <h2 class="section-heading">Interactive 3D Scroll Experience</h2>
+      <p class="feature-text">This page now includes the same scroll reveal behavior as your main page. Sections animate into place as you scroll, creating a polished entrance effect for the content.</p>
+    </div>
+    <div class="section-grid" style="margin-top:32px;">
+      <div class="panel">
+        <h3 class="feature-title">Smooth Content Reveal</h3>
+        <p class="feature-text">Elements fade up from below when they enter the viewport, mirroring the main page reveal animation.</p>
+      </div>
+      <div class="panel">
+        <h3 class="feature-title">Fixed Header Navigation</h3>
+        <p class="feature-text">Quickly jump between sections with anchor links and smooth scroll behavior.</p>
+      </div>
+      <div class="panel">
+        <h3 class="feature-title">Responsive Layout</h3>
+        <p class="feature-text">The content adapts cleanly from desktop to mobile while preserving the scrolling interaction.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="details" class="section scroll-reveal">
+    <div class="panel">
+      <h2 class="section-heading">How the Effect Works</h2>
+      <p class="feature-text">A lightweight Intersection Observer watches each section with <code>.scroll-reveal</code>. When a section enters view, it gets an active class and animates into place.</p>
+    </div>
+  </section>
+
+  <script>
+    (function(){
+      const scene = document.getElementById('scene');
+      const card = document.getElementById('card');
+      const bg = document.getElementById('bg');
+      let width = scene.clientWidth, height = scene.clientHeight;
+      let destX = 0, destY = 0, destZ = 0, rx = 0, ry = 0, tz = 0;
+      let destRing = 0, ringRotation = 0;
+
+      const orbiter = document.getElementById('orbiter');
+      function setTransform(){
+        card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateZ(${tz}px)`;
+        // parallax background moves slightly opposite
+        const bgTx = ry * -0.6; const bgTy = rx * 0.6;
+        bg.style.transform = `translate3d(${bgTx}px, ${bgTy}px, -120px) scale(1.12)`;
+        if (orbiter) orbiter.style.transform = `rotateY(${ringRotation}deg)`;
+      }
+
+      let raf = null;
+      function animate(){
+        // easing toward destination
+        rx += (destX - rx) * 0.12;
+        ry += (destY - ry) * 0.12;
+        tz += (destZ - tz) * 0.12;
+        ringRotation += (destRing - ringRotation) * 0.1;
+        setTransform();
+        raf = requestAnimationFrame(animate);
+      }
+      raf = requestAnimationFrame(animate);
+
+      function onPointerMove(e){
+        const rect = scene.getBoundingClientRect();
+        const x = (e.clientX ?? (e.touches && e.touches[0].clientX)) - rect.left;
+        const y = (e.clientY ?? (e.touches && e.touches[0].clientY)) - rect.top;
+        const px = (y - rect.height/2) / (rect.height/2); // -1 .. 1
+        const py = (x - rect.width/2) / (rect.width/2);
+        destX = clamp(px * -12, -18, 18);
+        destY = clamp(py * 18, -18, 18);
+        destZ = 20 + Math.hypot(py, px) * 30;
+        destRing = clamp(py * -30, -45, 45);
+      }
+
+      function onLeave(){ destX = 0; destY = 0; destZ = 0; }
+
+      function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+
+      scene.addEventListener('mousemove', onPointerMove);
+      scene.addEventListener('touchmove', onPointerMove,{passive:true});
+      scene.addEventListener('mouseleave', onLeave);
+      scene.addEventListener('touchend', onLeave);
+
+      // zoom with wheel / pinch
+      let zoom = 0;
+      window.addEventListener('wheel', (e)=>{
+        zoom = clamp(zoom + e.deltaY*0.02, -60, 80);
+        destZ = zoom;
+      },{passive:true});
+
+      // responsive resize
+      window.addEventListener('resize', ()=>{width=scene.clientWidth;height=scene.clientHeight});
+
+      // initial subtle entrance
+      card.style.transform = 'translateZ(0)';
+
+    })();
+  </script>
+  <script>
+    (function(){
+      const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('active');
+        });
+      }, observerOptions);
+      document.querySelectorAll('.scroll-reveal').forEach((el) => observer.observe(el));
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const target = document.querySelector(this.getAttribute('href'));
+          if (!target) return;
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+      window.addEventListener('scroll', () => {
+        const nav = document.querySelector('nav.intro-nav');
+        if (!nav) return;
+        if (window.scrollY > 40) nav.classList.add('bg-active');
+        else nav.classList.remove('bg-active');
+      });
+    })();
+  </script>
+</body>
+</html>
