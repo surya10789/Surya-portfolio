@@ -1,4 +1,5 @@
 {
+  "version": 2,
   "builds": [
     {
       "src": "package.json",
@@ -9,9 +10,11 @@
     }
   ],
   "routes": [
+    { "handle": "filesystem" },
     { "src": "^/book$", "dest": "/book.html" },
     { "src": "^/certificate$", "dest": "/certificate.html" },
     { "src": "^/intro-3d$", "dest": "/intro-3d.html" },
-    { "src": "^/main$", "dest": "/main.html" }
+    { "src": "^/main$", "dest": "/main.html" },
+    { "src": "^/(.*)$", "dest": "/index.html" }
   ]
 }
