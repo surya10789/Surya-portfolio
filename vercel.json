@@ -1,0 +1,17 @@
+{
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    { "src": "^/book$", "dest": "/book.html" },
+    { "src": "^/certificate$", "dest": "/certificate.html" },
+    { "src": "^/intro-3d$", "dest": "/intro-3d.html" },
+    { "src": "^/main$", "dest": "/main.html" }
+  ]
+}
